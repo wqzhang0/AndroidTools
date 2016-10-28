@@ -1,4 +1,4 @@
-package com.wqzhang.myapplication;
+package com.wqzhang.z;
 
 import org.junit.Test;
 
