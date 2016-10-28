@@ -2,6 +2,9 @@ package com.wqzhang.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.wqzhang.myapplication.listener.NaviAnimationListener;
 
 /**
  * Created by wqzhang
@@ -10,6 +13,7 @@ import android.os.Bundle;
  */
 
 public class DragAndDrawActivity extends Activity {
+    private final String TAG = "DragAndDrawActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +22,18 @@ public class DragAndDrawActivity extends Activity {
 //        SurfaceViewDemo surfaceViewDemo = new SurfaceViewDemo(this);
 //        setContentView(surfaceViewDemo);
 //        surfaceViewDemo.init();
-//        SurfaceViewDemo surfaceViewDemo = (SurfaceViewDemo) findViewById(R.id.SurfaceViewDemo);
+        CicularSeekBarView cicularSeekBarView = (CicularSeekBarView) findViewById(R.id.cicularSeekBarView);
+        cicularSeekBarView.setTime();
+        cicularSeekBarView.setNaviAnimationListener(new NaviAnimationListener() {
+            @Override
+            public void end() {
+                Log.d(TAG,"NaviAnimationListener,end");
+            }
+
+            @Override
+            public void start() {
+            }
+        });
 //        surfaceViewDemo.init();
     }
 

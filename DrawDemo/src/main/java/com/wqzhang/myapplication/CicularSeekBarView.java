@@ -22,7 +22,8 @@ import com.wqzhang.myapplication.listener.NaviAnimationListener;
  *
  * 提供listener 处理动画结束的事件
  * 解决： surfaceView动画 隐藏布局时继续显示的情况 ；多次调用view倒计时Thread 同步
- * 问题： 不能检测当前view是否在显示状态（不能判断是否隐藏）
+ * 隐藏后不listener 的结束回调方法
+ *
  */
 
 public class CicularSeekBarView extends View {
@@ -97,7 +98,7 @@ public class CicularSeekBarView extends View {
     }
 
     public void setTime() {
-        allTime = currentTime = 100;
+        allTime = currentTime = 30;
         start();
     }
 
@@ -149,10 +150,11 @@ public class CicularSeekBarView extends View {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (View.VISIBLE == getWindowVisibility()) {
-                                    mNaviAnimationListener.end();
+                                if(isShown()){
+                                    if (View.VISIBLE == getWindowVisibility()) {
+                                        mNaviAnimationListener.end();
+                                    }
                                 }
-
                             }
                         });
                     }
@@ -160,4 +162,6 @@ public class CicularSeekBarView extends View {
             }
         }
     }
+
+
 }
