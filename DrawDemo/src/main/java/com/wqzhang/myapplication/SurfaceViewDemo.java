@@ -20,6 +20,9 @@ import android.view.SurfaceView;
  * 一个倒计时的环形动画效果
  * 在xml 里面调用  两个参数的构造方法
  * 在code 里调用 调用一个参数的构造方法
+ *
+ * surface 动画  在view/父类被隐藏时  还能继续绘画/显示
+ * 所以又自定义了VIEW 去实现透明动画 ../CicularSeekBarView
  */
 
 public class SurfaceViewDemo extends SurfaceView implements SurfaceHolder.Callback {
@@ -68,18 +71,18 @@ public class SurfaceViewDemo extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.d(TAG,"surfaceCreated");
+        Log.d(TAG, "surfaceCreated");
         init();
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Log.d(TAG,"surfaceChanged");
+        Log.d(TAG, "surfaceChanged");
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        Log.d(TAG,"surfaceDestroyed");
+        Log.d(TAG, "surfaceDestroyed");
     }
 
     public void init() {
@@ -109,11 +112,10 @@ public class SurfaceViewDemo extends SurfaceView implements SurfaceHolder.Callba
     public static void setTime(int x) {
         Log.d(TAG, "setTime" + x);
         canvas = surfaceHolder.lockCanvas(rectCircle);
-        if(x == 0) {
+        if (x == 0) {
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
-        }else {
-
+        } else {
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             Log.d(TAG, "bili: " + (360 * ((float) x / (float) allTime)));
             canvas.drawText((currentTime / 10 + 1) + "s", 80, 20, numPaint);
@@ -121,7 +123,6 @@ public class SurfaceViewDemo extends SurfaceView implements SurfaceHolder.Callba
         }
 
         surfaceHolder.unlockCanvasAndPost(canvas);
-
 
 
     }
@@ -136,7 +137,7 @@ public class SurfaceViewDemo extends SurfaceView implements SurfaceHolder.Callba
                             currentTime = currentTime - 1;
 
                             try {
-                                Thread.sleep(100);
+                                Thread.sleep(1000 / 10);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
